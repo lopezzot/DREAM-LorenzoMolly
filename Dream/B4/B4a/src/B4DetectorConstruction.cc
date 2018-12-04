@@ -214,15 +214,15 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
   G4double moduleX = 12.*mm; 
   G4double moduleY = moduleX;
 
-  // Geometry parameters of the passive layer1
-  G4double layer1X = 15.*mm;
-  G4double layer1Y = 1.5*mm;
-  G4double layer1Z = moduleZ;
-
-  // Geometry parameters of the passive layer2
-  G4double layer2X = 1.5*mm;
-  G4double layer2Y = moduleY;
-  G4double layer2Z = moduleZ;
+//  // Geometry parameters of the passive layer1
+//  G4double layer1X = 15.*mm;
+//  G4double layer1Y = 1.5*mm;
+//  G4double layer1Z = moduleZ;
+//
+//  // Geometry parameters of the passive layer2
+//  G4double layer2X = 1.5*mm;
+//  G4double layer2Y = moduleY;
+//  G4double layer2Z = moduleZ;
 
   // Geometry parameters of the world, world is a box
   G4double worldX = 200 * moduleX;
@@ -543,24 +543,24 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
                  defaultMaterial,           // its material
                  "moduleequipped");         // its name
 
-  // Here I build the layer1 and layer2 surrounding the active part
-  // I need only layer2
-
-  G4VSolid* layer1 = new G4Box("layer1", layer1X/2, layer1Y/2, layer1Z/2); //its name and size
-
-  G4LogicalVolume* layer1LV
-   = new G4LogicalVolume(
-                layer1,             //its solid
-                absorberMaterial,   // its material
-                "layer1");          // its name
-
-  G4VSolid* layer2 = new G4Box("layer2", layer2X/2, layer2Y/2, layer2Z/2); //its name and size
-
-  G4LogicalVolume* layer2LV
-   = new G4LogicalVolume(
-                layer2,             //its solid
-                absorberMaterial,   // its material
-                "layer2");          // its name
+//  // Here I build the layer1 and layer2 surrounding the active part
+//  // I need only layer2
+//
+//  G4VSolid* layer1 = new G4Box("layer1", layer1X/2, layer1Y/2, layer1Z/2); //its name and size
+//
+//  G4LogicalVolume* layer1LV
+//   = new G4LogicalVolume(
+//                layer1,             //its solid
+//                absorberMaterial,   // its material
+//                "layer1");          // its name
+//
+//  G4VSolid* layer2 = new G4Box("layer2", layer2X/2, layer2Y/2, layer2Z/2); //its name and size
+//
+//  G4LogicalVolume* layer2LV
+//   = new G4LogicalVolume(
+//                layer2,             //its solid
+//                absorberMaterial,   // its material
+//                "layer2");          // its name
 
   // Here I place the single module equipped with SiPM in the center of the world
   // I rotate it a bit in order to avoid problems due to the perfect alinment 
@@ -600,61 +600,61 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
                  defaultMaterial,        // its material 
                  "CalorimeterLV");       // its name
 
-  // Here I build the air tubre for layer1 and layer2 and place them
-
-  G4Tubs* airtube = new G4Tubs("airtube", 0., fiberradius+0.1*mm, fiberZ/2, 0., 2.*pi);
-
-  G4LogicalVolume* logic_airtube = new G4LogicalVolume(airtube,          //its solid
-                                                       defaultMaterial,  //its material
-                                                       "airtube");       //its name
-
-  // I set the visualization attributes of the air tube
-  G4VisAttributes* airtubeVisAtt = new G4VisAttributes(G4Colour(0.0,1.0,1.0)); //cyan
-  airtubeVisAtt->SetVisibility(true);
-  airtubeVisAtt->SetForceWireframe(true);
-  airtubeVisAtt->SetForceSolid(true);
-  logic_airtube->SetVisAttributes(airtubeVisAtt); //end of visualization attributes
-  
-  // Here I place the airtube inside layer1 and layer2
-  // I don't need layer1
-  
-  G4double airtubex;
-  G4ThreeVector vec_airtube;
-  G4VPhysicalVolume* physi_airtube[10];
-  for(int row=0; row<10; row++){
-        airtubex = (-7.5*mm + 0.75*mm + (1.5*row)*mm);
-           
-        vec_airtube.setX(airtubex);
-        vec_airtube.setY(0.0*mm);
-        vec_airtube.setZ(0.);
-
-        physi_airtube[row] = new G4PVPlacement(0,     
-                                               vec_airtube,              
-                                               logic_airtube,     
-                                               "airtube",                        
-                                                layer1LV,                      
-                                                false,                          
-                                                0); 
-      };
-
-  G4double airtubey;
-  G4ThreeVector vec_airtube2;
-  G4VPhysicalVolume* physi_airtube2[8];
-  for(int column=0; column<8; column++){
-        airtubey = (-6.0*mm + 0.75*mm + (1.5*column)*mm);
-           
-        vec_airtube2.setX(0);
-        vec_airtube2.setY(airtubey);
-        vec_airtube2.setZ(0.);
-
-        physi_airtube2[column] = new G4PVPlacement(0,     
-                                               vec_airtube2,              
-                                               logic_airtube,     
-                                               "airtube",                        
-                                                layer2LV,                      
-                                                false,                          
-                                                0); 
-      }; 
+//  // Here I build the air tubre for layer1 and layer2 and place them
+//
+//  G4Tubs* airtube = new G4Tubs("airtube", 0., fiberradius+0.1*mm, fiberZ/2, 0., 2.*pi);
+//
+//  G4LogicalVolume* logic_airtube = new G4LogicalVolume(airtube,          //its solid
+//                                                       defaultMaterial,  //its material
+//                                                       "airtube");       //its name
+//
+//  // I set the visualization attributes of the air tube
+//  G4VisAttributes* airtubeVisAtt = new G4VisAttributes(G4Colour(0.0,1.0,1.0)); //cyan
+//  airtubeVisAtt->SetVisibility(true);
+//  airtubeVisAtt->SetForceWireframe(true);
+//  airtubeVisAtt->SetForceSolid(true);
+//  logic_airtube->SetVisAttributes(airtubeVisAtt); //end of visualization attributes
+//  
+//  // Here I place the airtube inside layer1 and layer2
+//  // I don't need layer1
+//  
+//  G4double airtubex;
+//  G4ThreeVector vec_airtube;
+//  G4VPhysicalVolume* physi_airtube[10];
+//  for(int row=0; row<10; row++){
+//        airtubex = (-7.5*mm + 0.75*mm + (1.5*row)*mm);
+//           
+//        vec_airtube.setX(airtubex);
+//        vec_airtube.setY(0.0*mm);
+//        vec_airtube.setZ(0.);
+//
+//        physi_airtube[row] = new G4PVPlacement(0,     
+//                                               vec_airtube,              
+//                                               logic_airtube,     
+//                                               "airtube",                        
+//                                                layer1LV,                      
+//                                                false,                          
+//                                                0); 
+//      };
+//
+//  G4double airtubey;
+//  G4ThreeVector vec_airtube2;
+//  G4VPhysicalVolume* physi_airtube2[8];
+//  for(int column=0; column<8; column++){
+//        airtubey = (-6.0*mm + 0.75*mm + (1.5*column)*mm);
+//           
+//        vec_airtube2.setX(0);
+//        vec_airtube2.setY(airtubey);
+//        vec_airtube2.setZ(0.);
+//
+//        physi_airtube2[column] = new G4PVPlacement(0,     
+//                                               vec_airtube2,              
+//                                               logic_airtube,     
+//                                               "airtube",                        
+//                                                layer2LV,                      
+//                                                false,                          
+//                                                0); 
+//      }; 
 
   // Here I place the modules equipped inside the calorimeter
   // There is no rotation of the modules, I will later rotate the entire calorimeter
@@ -684,75 +684,75 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
       };
    }; 
  
-  // Here I place layer1 in the calorimeter up and down
-
-  G4ThreeVector up_layer1;
-  up_layer1.setX(0.);
-  up_layer1.setY(moduleY/2 + layer1Y/2);
-  up_layer1.setZ(-0.18);
-
-  G4ThreeVector down_layer1;
-  down_layer1.setX(0.);
-  down_layer1.setY(-(moduleY/2+layer1Y/2));
-  down_layer1.setZ(-0.18);
-
-  /*G4VPhysicalVolume* phys_uplayer1 = new G4PVPlacement(0,
-                                                     up_layer1,
-                                                     layer1LV,
-                                                     "layer",
-                                                      CalorimeterLV,
-                                                      false,
-                                                      0);
-
-  G4VPhysicalVolume* phys_downlayer1 = new G4PVPlacement(0, 
-                                                         down_layer1,
-                                                         layer1LV,
-                                                         "layer",
-                                                         CalorimeterLV,
-                                                         false,
-                                                         0);*/
-
-  // I set the visualization attributes of layer1
-  G4VisAttributes* layer1VisAtt = new G4VisAttributes(G4Colour(1.0,0.0,1.0)); //magenta
-  layer1VisAtt->SetVisibility(true);
-  layer1VisAtt->SetForceWireframe(true);
-  layer1VisAtt->SetForceSolid(true);
-  layer1LV->SetVisAttributes(layer1VisAtt); //end of visualization attributes*/
-
-  //Here I place layer2 in the calorimeter right and left
-
-  G4ThreeVector left_layer2;
-  left_layer2.setX(-moduleX/2 - layer2X/2);
-  left_layer2.setY(0.);
-  left_layer2.setZ(-0.18);
-
-  G4ThreeVector right_layer2;
-  right_layer2.setX(moduleX/2 + layer2X/2);
-  right_layer2.setY(0.);
-  right_layer2.setZ(-0.18);
-
-  /*G4VPhysicalVolume* phys_leftlayer2 = new G4PVPlacement(0,
-                                                     left_layer2,
-                                                     layer2LV,
-                                                     "leftlayer",
-                                                      CalorimeterLV,
-                                                      false,
-                                                      0);
-
-  G4VPhysicalVolume* phys_rightlayer2 = new G4PVPlacement(0, 
-                                                         right_layer2,
-                                                         layer2LV,
-                                                         "rightlayer",
-                                                         CalorimeterLV,
-                                                         false,
-                                                         0);*/
-  
-  // I set the visualization attributes of layer2
-  G4VisAttributes* layer2VisAtt = new G4VisAttributes(G4Colour(1.0,0.0,1.0)); //magenta
-  layer2VisAtt->SetVisibility(true);
-  layer2VisAtt->SetForceWireframe(true);
-  layer2VisAtt->SetForceSolid(true);
-  layer2LV->SetVisAttributes(layer2VisAtt); //end of visualization attributes */
+//  // Here I place layer1 in the calorimeter up and down
+//
+//  G4ThreeVector up_layer1;
+//  up_layer1.setX(0.);
+//  up_layer1.setY(moduleY/2 + layer1Y/2);
+//  up_layer1.setZ(-0.18);
+//
+//  G4ThreeVector down_layer1;
+//  down_layer1.setX(0.);
+//  down_layer1.setY(-(moduleY/2+layer1Y/2));
+//  down_layer1.setZ(-0.18);
+//
+//  /*G4VPhysicalVolume* phys_uplayer1 = new G4PVPlacement(0,
+//                                                     up_layer1,
+//                                                     layer1LV,
+//                                                     "layer",
+//                                                      CalorimeterLV,
+//                                                      false,
+//                                                      0);
+//
+//  G4VPhysicalVolume* phys_downlayer1 = new G4PVPlacement(0, 
+//                                                         down_layer1,
+//                                                         layer1LV,
+//                                                         "layer",
+//                                                         CalorimeterLV,
+//                                                         false,
+//                                                         0);*/
+//
+//  // I set the visualization attributes of layer1
+//  G4VisAttributes* layer1VisAtt = new G4VisAttributes(G4Colour(1.0,0.0,1.0)); //magenta
+//  layer1VisAtt->SetVisibility(true);
+//  layer1VisAtt->SetForceWireframe(true);
+//  layer1VisAtt->SetForceSolid(true);
+//  layer1LV->SetVisAttributes(layer1VisAtt); //end of visualization attributes*/
+//
+//  //Here I place layer2 in the calorimeter right and left
+//
+//  G4ThreeVector left_layer2;
+//  left_layer2.setX(-moduleX/2 - layer2X/2);
+//  left_layer2.setY(0.);
+//  left_layer2.setZ(-0.18);
+//
+//  G4ThreeVector right_layer2;
+//  right_layer2.setX(moduleX/2 + layer2X/2);
+//  right_layer2.setY(0.);
+//  right_layer2.setZ(-0.18);
+//
+//  /*G4VPhysicalVolume* phys_leftlayer2 = new G4PVPlacement(0,
+//                                                     left_layer2,
+//                                                     layer2LV,
+//                                                     "leftlayer",
+//                                                      CalorimeterLV,
+//                                                      false,
+//                                                      0);
+//
+//  G4VPhysicalVolume* phys_rightlayer2 = new G4PVPlacement(0, 
+//                                                         right_layer2,
+//                                                         layer2LV,
+//                                                         "rightlayer",
+//                                                         CalorimeterLV,
+//                                                         false,
+//                                                         0);*/
+//  
+//  // I set the visualization attributes of layer2
+//  G4VisAttributes* layer2VisAtt = new G4VisAttributes(G4Colour(1.0,0.0,1.0)); //magenta
+//  layer2VisAtt->SetVisibility(true);
+//  layer2VisAtt->SetForceWireframe(true);
+//  layer2VisAtt->SetForceSolid(true);
+//  layer2LV->SetVisAttributes(layer2VisAtt); //end of visualization attributes */
 
   // Here I place and rotate the entire calorimeter
 
